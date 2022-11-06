@@ -181,14 +181,13 @@ int main(int argc, char* argv[]) {
             configurationOne(star, csmaRightNodes, csmaNodes, csmaInterfaces);
             break;
         case 2:
-            csma.EnableAscii(getFileName(2, "n2.tr"), csmaNodes.Get(2)->GetDevice(1), true);
+            pointToPoint23.EnableAscii(getFileName(2, "n2.tr"), pointToPoint23Devices.Get(0), true);
             csmaright.EnableAscii(getFileName(2, "n8.tr"), csmaRightNodes.Get(0)->GetDevice(0), true);
 
             pointToPointStar.EnableAscii(getFileName(2, "n5.tr"), star.GetHub()->GetDevice(2), true);
             csmaright.EnableAscii(getFileName(2, "n9.tr"), csmaRightNodes.Get(1)->GetDevice(0), true);
 
             csma.EnableAscii(getFileName(2, "n0.tr"), csmaNodes.Get(0)->GetDevice(0), true);
-            csmaright.EnableAscii(getFileName(2, "n8.tr"), csmaRightNodes.Get(0)->GetDevice(0), true);
 
             configurationTwo(star, csmaRightNodes, csmaNodes, csmaInterfaces, csmaRightInterfaces);
             break;
