@@ -28,6 +28,7 @@ std::string getFileName(int configuration, std::string name) {
 int main(int argc, char* argv[]) {
 
     LogComponentEnable("Task_1_Team_1", LOG_LEVEL_INFO);
+
     int configuration = 0;
 
     CommandLine cmd(__FILE__);
@@ -176,6 +177,7 @@ int main(int argc, char* argv[]) {
             pointToPointStar.EnableAscii(getFileName(1, "n5.tr"), star.GetHub()->GetDevice(2), true);
             csmaright.EnableAscii(getFileName(1, "n8.tr"), csmaRightNodes.Get(0)->GetDevice(0), true);
             csmaright.EnableAscii(getFileName(1, "n9.tr"), csmaRightNodes.Get(1)->GetDevice(0), true);
+
             configurationOne(star, csmaRightNodes, csmaNodes, csmaInterfaces);
             break;
         case 2:
@@ -240,7 +242,7 @@ void configurationOne(PointToPointStarHelper star, NodeContainer csmaRightNodes,
     clientHelper.SetAttribute("OnTime", StringValue("ns3::ConstantRandomVariable[Constant=1]"));
     clientHelper.SetAttribute("OffTime", StringValue("ns3::ConstantRandomVariable[Constant=0]"));
 
-    ApplicationContainer clientApps;
+    ApplicationContainer clientApps, clientApps2;
     AddressValue remoteAddress(InetSocketAddress(star.GetHubIpv4Address(2), 2300));
     clientHelper.SetAttribute("Remote", remoteAddress);
     clientHelper.SetAttribute("PacketSize", UintegerValue(2500));
@@ -256,9 +258,9 @@ void configurationOne(PointToPointStarHelper star, NodeContainer csmaRightNodes,
     AddressValue remoteAddress2(InetSocketAddress(csmaLeftInterfaces.GetAddress(0), 7457)); // n0
     clientHelper2.SetAttribute("Remote", remoteAddress2);
     clientHelper2.SetAttribute("PacketSize", UintegerValue(5000));
-    clientApps.Add(clientHelper2.Install(csmaRightNodes.Get(0))); // n8
-    clientApps.Start(Seconds(2.0));
-    clientApps.Stop(Seconds(9.0));
+    clientApps2.Add(clientHelper2.Install(csmaRightNodes.Get(0))); // n8
+    clientApps2.Start(Seconds(2.0));
+    clientApps2.Stop(Seconds(9.0));
 }
 
 void createClient(Ptr<Node> node, Ipv4InterfaceContainer csmaLeftInterfaces, double tinit, double tfinish) {
@@ -299,7 +301,7 @@ void configurationTwo(PointToPointStarHelper star, NodeContainer csmaRightNodes,
     clientHelper.SetAttribute("OnTime", StringValue("ns3::ConstantRandomVariable[Constant=1]"));
     clientHelper.SetAttribute("OffTime", StringValue("ns3::ConstantRandomVariable[Constant=0]"));
 
-    ApplicationContainer clientApps;
+    ApplicationContainer clientApps, clientApps2;
     AddressValue remoteAddress(InetSocketAddress(star.GetHubIpv4Address(2), 2300));
     clientHelper.SetAttribute("Remote", remoteAddress);
     clientHelper.SetAttribute("PacketSize", UintegerValue(2500));
@@ -315,8 +317,7 @@ void configurationTwo(PointToPointStarHelper star, NodeContainer csmaRightNodes,
     AddressValue remoteAddress2(InetSocketAddress(csmaLeftInterfaces.GetAddress(0), 7454)); // n0
     clientHelper2.SetAttribute("Remote", remoteAddress2);
     clientHelper2.SetAttribute("PacketSize", UintegerValue(5000));
-    clientApps.Add(clientHelper2.Install(csmaRightNodes.Get(0))); // n8
-    clientApps.Start(Seconds(5.0));
-    clientApps.Stop(Seconds(15.0)); 
+    clientApps2.Add(clientHelper2.Install(csmaRightNodes.Get(0))); // n8
+    clientApps2.Start(Seconds(5.0));
+    clientApps2.Stop(Seconds(15.0)); 
 }
-
